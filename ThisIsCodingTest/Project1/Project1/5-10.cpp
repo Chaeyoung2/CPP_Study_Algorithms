@@ -1,30 +1,35 @@
 // 5-10. 음료수 얼려 먹기
-
+// 3/30 - O
+// 4/20 - △ (36번줄~)
 #include <iostream>
 using namespace std;
-
 int n, m;
-int arr[1000][1000];
-bool visited[1000][1000];
-int cnt;
+int arr[1001][1001];
+int result = 0;
 
-void dfs(int x, int y) {
-	if (x < 0 || x >= n || y < 0 || y >= n)
-		return;
-	if (visited[x][y] == true || arr[x][y] == 1)
-		return;
-	visited[x][y] = true;
+bool dfs(int h, int w) {
+	if (arr[h][w] == 1) return false;
+	arr[h][w] = 1;
 
-	dfs(x + 1, y);
-	dfs(x, y + 1);
-	dfs(x - 1, y);
-	dfs(x, y - 1);
-	
-	return;
+	if (h - 1 >= 0)
+		dfs(h - 1, w);
+
+	if(w + 1 < m) 
+		dfs(h, w + 1);
+
+	if(h + 1 < n)
+		dfs(h + 1, w);
+
+	if(w - 1 >= 0) 
+		dfs(h, w - 1);
+
+	return true;
+
 }
 
-int main() 
+int main()
 {
+	// setting
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
@@ -32,15 +37,14 @@ int main()
 		}
 	}
 
+	// solution
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			if (visited[i][j] == false && arr[i][j] == 0) {
-				dfs(i, j);
-				cnt++;
-			}
+			if(dfs(i, j))
+				result++;
 		}
 	}
 
-	cout << cnt << "\n";
+	cout << result << "\n";
 }
 
