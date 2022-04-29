@@ -8,7 +8,7 @@ using namespace std;
 
 int n, m, k, x;
 vector<vector<int>> v(300'001);
-vector<int> result(300'001, 0);
+vector<int> result(300'001, -1); 
 bool visited[300'001]{false};
 
 void bfs(int start) {
@@ -44,6 +44,7 @@ int main()
 		v[val1].push_back(val2);
 		v[val2].push_back(val1);
 	}
+
 	bfs(x);
 
 
