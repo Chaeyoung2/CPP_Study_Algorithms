@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class student {
@@ -39,26 +40,18 @@ int main()
 		v.push_back(s);
 	}
 
-	qsort(&v[0], n, sizeof(student), [](const void* d, const void* s) -> int {
-		const student* des = (student*)(d);
-		const student* src = (student*)(s);
-		if (des->kor < src->kor) return true;
-		else if (des->kor > src->kor) return false;
+	sort(v.begin(), v.end(), [](student& des, student& src) -> bool {
+		if (des.kor == src.kor && des.eng == src.eng && des.mat == src.mat) {
+			return des.name < src.name;
+		}
+		else if (des.kor == src.kor && des.eng == src.eng) {
+			return des.mat > src.mat;
+		}
+		else if (des.kor == src.kor) {
+			return des.eng < src.eng;
+		}
 		else {
-			if (des->eng > src->eng) return true;
-			else if (des->eng < src->eng) return false;
-			else {
-				if (des->mat < src->mat) return true;
-				else if (des->mat > src->mat) return false;
-				else {
-					int size = min(src->name.size(), des->name.size());
-					for (int i = 0; i < des->name.size(); i++) {
-						if (des->name[i] > src->name[i]) return true;
-						else if (des->name[i] < src->name[i]) return false;
-						else continue;
-					}
-				}
-			}
+			return des.kor > src.kor;
 		}
 		}
 		);
