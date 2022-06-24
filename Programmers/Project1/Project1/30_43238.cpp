@@ -1,4 +1,6 @@
 // 프로그래머스 고득점 kit - 입국 심사
+// (6/21 - X)
+
 #include <string>
 #include <vector>
 
